@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+<app-progress-bar *ngIf="loading"></app-progress-bar>
+<div *ngIf="!loading" class="row">
+    <!-- Contenedor de columna -->
+    <div class="col-lg-4 offset-lg-4">
+        <!-- Para centrar la card: (col-lg-4) Columna de 4 sobre 12 | (offset-lg-4) Deja 4 columnas vacías a la izquierda, establece la card en las 4 siguientes y deja 4 a la derecha -->
+        <div class="card" style="max-width: 25rem;">
+            <!-- Encabezado de la tarjeta centrado -->
+            <div class="card-header text-center">{{ titulo }}</div>
+            <div class="card-body">
+                <!-- Formulario para agregar videojuego -->
+                <form [formGroup]="formVideojuego" (ngSubmit)="addProduct()">
+                    <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre"> <!-- Campo de entrada para el nombre del videojuego -->
+
+                    <!-- Si la propiedad required del form es true, es decir, que no hay nada escrito y además la propiedad touched se ha activado manda el span -->
+                    <span *ngIf="formVideojuego.get('nombre')?.hasError('required') && formVideojuego.get('nombre')?.touched">  
+                        El campo nombre es <strong>requerido</strong>
+                    </span>
+
+                    <input formControlName="genero" type="text" class="form-control mt-2" placeholder="Género">
+                    <span *ngIf="formVideojuego.get('genero')?.hasError('required') && formVideojuego.get('genero')?.touched">
+                        El campo genero es <strong>requerido</strong>
+                    </span>
+
+                    <input formControlName="precio" type="number" class="form-control mt-2" placeholder="Precio">
+                    <span *ngIf="formVideojuego.get('precio')?.hasError('required') && formVideojuego.get('precio')?.touched">
+                        El campo precio es <strong>requerido</strong>
+                    </span>
+
+                    <input formControlName="nota" type="number" class="form-control mt-2" placeholder="Nota">
+                    <span *ngIf="formVideojuego.get('nota')?.hasError('required') && formVideojuego.get('nota')?.touched">
+                        El campo nota es <strong>requerido</strong>
+                    </span>
+                    
+                    <div class="row mt-2 text-center">
+                        <div class="col-lg-6">
+                            <button routerLink="/list" type="button" class="btn btn-primary">Volver</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button [disabled]="formVideojuego.invalid" type="submit"
+                                class="btn btn-success">Aceptar</button>
+                        </div>
+                    </div>
+                    <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

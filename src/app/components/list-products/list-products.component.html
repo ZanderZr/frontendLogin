@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+<app-progress-bar *ngIf="loading"></app-progress-bar>
+<div class="container">
+    <div *ngIf="!loading" class="title">
+        <h4>Listado de videojuegos</h4>
+        <button type="button" class="btn btn-info" routerLink="/add">Agregar videojuego</button>
+    </div>
+    <table *ngIf="listProducts.length > 0" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Genero</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Nota</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of listProducts"class="table-secondary">
+      <td>{{ item.nombre }}</td>
+      <td>{{ item.genero}}</td>
+      <td>{{ item.precio | currency }}</td>
+      <td>{{ item.nota }}</td>
+      <td>
+        <button routerLink="/edit/ {{ item.id }} " type="button" class="btn btn-success btn-sm">Editar</button>
+        <button (click)="deleteProduct(item.id!)" type="button" class="btn btn-danger btn-sm ms-3">Borrar</button>
+      </td>
+  </tbody>
+</table>
+<h5 *ngIf="listProducts.length == 0" >No hay videojuegos para mostrar</h5>
+</div>
+
+<!--"deleteProduct(item.id!)" ese '!' significa que el valor no va a ser undefined -->

@@ -1,0 +1,26 @@
+<div class="bloque-register col-lg-4 offset-lg-4">
+    <div class="card text-white bg-warning mb-3" style="max-width: 30rem;">
+        <div class="card-header text-center">REGISTER</div>
+        <div class="card-body">
+            <form [formGroup]="formRegister">
+                <label for="exampleInputEmail1" class="form-label mt-4">User</label>
+                <input formControlName="username" type="text" class="form-control" placeholder="Enter an user name">
+                <label for="exampleInputEmail1" class="form-label mt-4">Email</label>
+                <input formControlName="email" type="email" class="form-control" placeholder="Enter your email">
+                <label for="exampleInputEmail1" class="form-label mt-4">Password</label>
+                <input formControlName="password1" type="password" class="form-control" placeholder="Enter your password">
+                <label for="exampleInputEmail1" class="form-label mt-4">Password confirmation</label>
+                <input formControlName="password2" type="password" class="form-control" placeholder="Confirm your password">
+            </form>
+            <div class="row mt-4 text-center">
+                <div class=" col-lg-5"></div>
+                <div class="col-lg-3">
+                    <button type="button" class="btn btn-primary"  (click)="register()">REGISTER</button>
+                </div>
+                <div class="col-lg-4">
+                    <button routerLink="/login" type="submit" class="btn btn">Go to Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
