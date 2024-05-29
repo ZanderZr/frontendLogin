@@ -6,3 +6,7 @@
     object-position: center; /* Centra la imagen dentro del contenedor */
   }
   
+  .scrollable {
+    overflow: auto;
+    height: 100%; // Ajusta la altura según sea necesario
+}
