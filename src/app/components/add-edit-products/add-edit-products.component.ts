@@ -23,15 +23,18 @@ export class AddEditProductsComponent implements OnInit {
     private aRouter: ActivatedRoute, private _usersService: UsersService) {
 
     this.formVideojuego = this.fb.group({
-      nombre: ['', Validators.required], 
-      genero: ['', Validators.required], 
-      precio: ['', Validators.required], 
+      nombre: ['', [Validators.required, Validators.minLength(3)]], 
+      genero: ['', [Validators.required, Validators.minLength(3)]], 
+      precio: ['', [Validators.required, Validators.min(1)]], 
       nota: ['', [Validators.required, Validators.maxLength(2)]] // Campo nota con validación requerida y longitud máxima de 2
     })
     this.id = Number(aRouter.snapshot.paramMap.get('id')); // Obtener el id del producto desde la ruta
   }
 
   ngOnInit(): void {
+    
+    console.log(this.formVideojuego)
+
     if(this.id != 0) { // Si el id no es 0, significa que estamos en modo edición
       this.titulo = 'Editar videojuego'; // Cambiar el título a "Editar videojuego"
       this.getProduct(this.id); // Cargar los datos del producto a editar
@@ -50,15 +53,17 @@ export class AddEditProductsComponent implements OnInit {
     this.loading = true; // Mostrar indicador de carga
     this._productService.getProduct(id).subscribe((data: Product) => {
       this.loading = false; // Ocultar indicador de carga
-      this.formVideojuego.setValue({
+
+      this.formVideojuego.patchValue({
         nombre: data.nombre, // Establecer el valor del campo nombre con los datos del producto
         genero: data.genero, 
         precio: data.precio, 
         nota: data.nota 
-      })
-    })
+      });
+    });
   }
 
+  // AÑADIR O EDITAR
   addProduct() {
     const formData = new FormData();
     formData.append('nombre', this.formVideojuego.value.nombre); // Añadir el nombre al FormData
@@ -73,7 +78,6 @@ export class AddEditProductsComponent implements OnInit {
     this.loading = true; // Mostrar indicador de carga
 
     if (this.id !== 0) { // Si id no es 0, estamos en modo edición
-      formData.append('id', this.id.toString()); // Añadir el id al FormData
       this._productService.updateProduct(this.id, formData).subscribe(() => {
         this.toastr.success('Videojuego editado', 'Editado'); // Mostrar notificación de éxito
         this.loading = false; // Ocultar indicador de carga
@@ -87,4 +91,5 @@ export class AddEditProductsComponent implements OnInit {
       });
     }
   }
+  
 }
