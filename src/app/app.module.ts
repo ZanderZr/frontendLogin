@@ -48,7 +48,7 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    IonicModule.forRoot({}),
+    IonicModule.forRoot({})
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

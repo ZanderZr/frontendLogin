@@ -5,6 +5,7 @@ import { Product } from 'src/app/interfaces/product';
 import { User } from 'src/app/interfaces/user';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { UsersService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-favorites',
@@ -18,7 +19,7 @@ export class FavoritesComponent  implements OnInit {
   image: string = ""
 
   constructor(private router: Router, private _favoriteService: FavoriteService, 
-    private _usersService: UsersService) { }
+    private _usersService: UsersService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this._usersService.getUser().subscribe(
@@ -57,5 +58,14 @@ export class FavoritesComponent  implements OnInit {
   }
 }
 
+deleteFavorite(idUser: number, idVideojuego: number) {
+
+  idUser = this.idUser
+
+  this._favoriteService.deleteFavorite(idUser, idVideojuego).subscribe(() => {
+    this.getListFavorites(this.idUser);
+    this.toastr.warning('Videojuego eliminado de favoritos', 'Eliminado');
+  })
+}
 }
 

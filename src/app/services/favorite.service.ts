@@ -24,8 +24,8 @@ export class FavoriteService {
         return this.http.get<Product[]>( this.myAppUrl + this.myApiUrl + idUser );
     }
 
-  deleteFavorite(id: number):Observable<void> {
-    return this.http.delete<void>( this.myAppUrl + this.myApiUrl + id );
+  deleteFavorite(idUser: number, idVideojuego: number):Observable<void> {
+    return this.http.delete<void>( this.myAppUrl + this.myApiUrl + idUser +'/'+ idVideojuego );
    }
 
   addFavorite( favorite: Favorite ): Observable<void> {

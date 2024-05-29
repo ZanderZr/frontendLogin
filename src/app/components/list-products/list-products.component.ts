@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -14,6 +14,8 @@ import { User } from 'src/app/interfaces/user';
 })
 export class ListProductsComponent implements OnInit {
 
+  @ViewChild('tabla') tabla!: ElementRef; // Obtén una referencia al elemento de la tabla
+
   listProducts: Product[] = []
 
   loading: boolean = false;
@@ -21,7 +23,7 @@ export class ListProductsComponent implements OnInit {
   boxProducts: Product[] = [];
 
   constructor(private _productService: ProductService, private _usersService: UsersService, private _favoriteService: FavoriteService, private toastr: ToastrService) { }
-
+ 
   ngOnInit(): void {
     this.getListProducts();
   }
@@ -89,4 +91,22 @@ export class ListProductsComponent implements OnInit {
       }
     });
   }
+
+  sortBy(field: string, products: Product[]) {
+    if (field === 'nombre' || field === 'genero' || field === 'precio' || field === 'nota') {
+      products.sort((a, b) => {
+        if (a[field] < b[field]) {
+          return -1;
+        }
+        if (a[field] > b[field]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      console.error('Campo de ordenación no válido:', field);
+    }
+  }
+  
+  
 }

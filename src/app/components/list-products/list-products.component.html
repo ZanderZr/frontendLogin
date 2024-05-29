@@ -8,10 +8,10 @@
     <table *ngIf="listProducts.length > 0" class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Genero</th>
-      <th scope="col">Precio</th>
-      <th scope="col">Nota</th>
+      <th scope="col" (click)="sortBy('nombre', listProducts)">Nombre</th>
+      <th scope="col" (click)="sortBy('genero', listProducts)">Genero</th>
+      <th scope="col" (click)="sortBy('precio', listProducts)">Precio</th>
+      <th scope="col" (click)="sortBy('nota', listProducts)">Nota</th>
       <th scope="col"></th>
     </tr>
   </thead>

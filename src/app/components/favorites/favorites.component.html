@@ -10,8 +10,9 @@
           <p class="card-text">Género: {{ product.genero }}</p>
           <p class="card-text">Precio: {{ product.precio }}</p>
           <p class="card-text">Nota: {{ product.nota}}</p>
+          <button (click)="deleteFavorite(idUser, product.id!)" type="button" class="btn btn-danger btn-sm ">Eliminar</button>
         </div>
       </div>
-    </div>
+    </div> 
   </div>
 </div>
