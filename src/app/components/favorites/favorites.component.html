@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h2>Favoritos</h2>
+  <div class="row">
+    <div *ngFor="let product of listFavorites" class="col-md-4 mb-4">
+      <div class="card">
+        <img [src]="getProductImageUrl(product.imagen)" class="card-img-top responsive-img" alt="Imagen del Producto">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.nombre }}</h5>
+          <p class="card-text">Género: {{ product.genero }}</p>
+          <p class="card-text">Precio: {{ product.precio }}</p>
+          <p class="card-text">Nota: {{ product.nota}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 import { User } from '../interfaces/user';
 import { CookieService } from "ngx-cookie-service";
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -34,9 +35,13 @@ export class UsersService {
     }
 
     getUser(): Observable<any> {
-
       const token = this.getToken();
-      return this.http.post(`${this.myAppUrl}${this.myApiUrl}token`, token);
+      if (token) {
+        return this.http.post(`${this.myAppUrl}${this.myApiUrl}token`, { token: token });
+      } else {
+        console.error('No se proporcionó ningún token');
+        return of(null);
+      }
     }
 
     logout() {

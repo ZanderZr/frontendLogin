@@ -12,7 +12,8 @@ import { Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
 
-  constructor(private fb: FormBuilder, private _usersService: UsersService, private toastr: ToastrService, private router: Router) {
+  constructor(private fb: FormBuilder, private _usersService: UsersService, private toastr: ToastrService, 
+    private router: Router) {
     this.formLogin = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {
     if(this._usersService.getToken()){
-      this.router.navigate(['/list']);
+      this.router.navigate(['/list']);  
     }
   }
 
@@ -31,16 +32,16 @@ export class LoginComponent implements OnInit {
       password: this.formLogin.value.password
     };
 
-    this._usersService.login(user).subscribe(
-      data => {
-        this._usersService.setToken(data.token);
-        this.router.navigateByUrl('/list');
+    this._usersService.login(user).subscribe({ // Llama al método login del servicio _usersService y se suscribe a la respuesta
+      next: data => { // En caso de éxito (respuesta positiva)
+        this._usersService.setToken(data.token); // Guarda el token recibido en el servicio _usersService
+        this.router.navigateByUrl('/list'); // Redirige al usuario a la ruta '/list'
       },
-      error => {
-        console.log(error);
-        // Si se produce un error, muestra un mensaje de error en un toast
-        this.toastr.error('Email o contraseña incorrectos', 'Error');
+      error: error => { // En caso de error (respuesta negativa)
+        console.log(error); // Imprime el error en la consola
+        this.toastr.error('Email o contraseña incorrectos', 'Error'); // Muestra un mensaje de error usando toastr
       }
+    }
     );
   }
 }

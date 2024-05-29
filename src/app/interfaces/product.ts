@@ -4,4 +4,5 @@ export interface Product {
     genero: string;
     precio: number;
     nota: number;
+    imagen: string;
 }

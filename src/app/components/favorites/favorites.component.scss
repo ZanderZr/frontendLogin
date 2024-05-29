@@ -1,0 +1,8 @@
+.responsive-img {
+    width: 100%; /* La imagen ocupará el 100% del ancho del contenedor */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+    max-height: 200px; /* Opcional: limita la altura máxima para evitar que sean demasiado grandes */
+    object-fit: contain; /* Ajusta la imagen para cubrir el contenedor, manteniendo la proporción */
+    object-position: center; /* Centra la imagen dentro del contenedor */
+  }
+  

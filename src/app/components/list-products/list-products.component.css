@@ -1,5 +1,12 @@
 .title {
     margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+}
+td {
+    text-align: center;
+}
+th {
+    text-align: center;
 }

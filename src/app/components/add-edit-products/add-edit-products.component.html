@@ -32,6 +32,9 @@
                         El campo nota es <strong>requerido</strong>
                     </span>
                     
+                    <h6 href="">Seleccione la portada del juego</h6>
+                    <input type="file" class="form-control mt-2" (change)="onFileSelected($event)" placeholder="Imagen"> <!--Obtiene el archivo-->
+
                     <div class="row mt-2 text-center">
                         <div class="col-lg-6">
                             <button routerLink="/list" type="button" class="btn btn-primary">Volver</button>

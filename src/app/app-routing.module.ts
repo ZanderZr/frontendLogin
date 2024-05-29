@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MainComponent } from './components/main/main.component';
 import { authGuard } from './guards/auth-guard.guard';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'add', component: AddEditProductsComponent, canActivate: [authGuard] },
   { path: 'list', component: ListProductsComponent, canActivate: [authGuard] },
   { path: 'edit/:id', component: AddEditProductsComponent, canActivate: [authGuard] },
+  { path: 'favorites', component: FavoritesComponent, canActivate: [authGuard]},
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

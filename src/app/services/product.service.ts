@@ -26,15 +26,16 @@ export class ProductService {
    return this.http.delete<void>( this.myAppUrl + this.myApiUrl + id);
   }
 
-  addProduct( product: Product ): Observable<void> {
-    return this.http.post<void>( this.myAppUrl + this.myApiUrl, product );
+  addProduct( product: FormData ): Observable<Product> {
+    return this.http.post<Product>( this.myAppUrl + this.myApiUrl, product );
   }
 
   getProduct(id:number):Observable<Product> {
     return this.http.get<Product>( this.myAppUrl + this.myApiUrl + id );
   }
 
-  updateProduct(id:number, product:Product) : Observable<void> {
-    return this.http.put<void>(this.myAppUrl + this.myApiUrl + id, product);
+  updateProduct(id:number, product:FormData) : Observable<Product> {
+    return this.http.put<Product>(this.myAppUrl + this.myApiUrl + id, product);
   }
+
 }

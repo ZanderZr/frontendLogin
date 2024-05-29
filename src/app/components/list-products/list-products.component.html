@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of listProducts"class="table-secondary">
+    <tr *ngFor="let item of listProducts" class="table-secondary">
       <td>{{ item.nombre }}</td>
       <td>{{ item.genero}}</td>
       <td>{{ item.precio | currency }}</td>
@@ -24,9 +24,12 @@
       <td>
         <button routerLink="/edit/ {{ item.id }} " type="button" class="btn btn-success btn-sm">Editar</button>
         <button (click)="deleteProduct(item.id!)" type="button" class="btn btn-danger btn-sm ms-3">Borrar</button>
+        <button (click)="addCarrito(item.id!)" type="button" class="btn btn-info btn-sm ms-3">Carrito</button>
+        <button (click)="addFav(item.id!)" type="button" class="btn btn-warning btn-sm ms-3">Favoritos</button>
       </td>
   </tbody>
 </table>
+<app-box [boxProducts]="boxProducts"></app-box>
 <h5 *ngIf="listProducts.length == 0" >No hay videojuegos para mostrar</h5>
 </div>
 

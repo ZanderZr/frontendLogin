@@ -19,6 +19,9 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MainComponent } from './components/main/main.component';
+import { IonicModule } from '@ionic/angular';
+import { BoxComponent } from './components/box/box.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -27,9 +30,11 @@ import { MainComponent } from './components/main/main.component';
     ListProductsComponent,
     AddEditProductsComponent,
     ProgressBarComponent,
+    BoxComponent,
     LoginComponent,
     RegisterComponent,
-    MainComponent
+    MainComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +48,7 @@ import { MainComponent } from './components/main/main.component';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
+    IonicModule.forRoot({}),
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
