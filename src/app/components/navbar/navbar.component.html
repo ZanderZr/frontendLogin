@@ -11,6 +11,7 @@
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
+            <button *ngIf="isLogged" class="btn my-2 my-sm-0" type="submit" (click)="logout()">Logout</button>
           <li>
             <a routerLink="/favorites/" class="nav-link my-2 my-sm-0" type="submit">⭐ Favoritos</a>
           </li>
@@ -28,8 +29,9 @@
           -->
         </ul>
         <form class="d-flex ms-auto">
-          <input class="form-control me-sm-2" type="search" placeholder="Search">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+          <input class="form-control me-sm-2" type="text" #productSearchInput placeholder="Search">
+          <button class="btn btn-secondary my-2 my-sm-0" type="button" alt="search">Search</button>
+
         </form>
       </div>
     </div>

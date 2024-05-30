@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from "@angular/router";
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    if(this._usersService.getToken()){
+    if(this._usersService.getUser()){
       this.router.navigate(['/list']);  
     }
   }
