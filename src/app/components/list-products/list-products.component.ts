@@ -131,9 +131,11 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
         const searchTerm = (event.target as HTMLInputElement).value; // Obtén el valor del input
         return searchTerm; // Devuelve el término de búsqueda
       }),
+      // Metodos para optimizar recursos en la busqueda
       filter((searchTerm: string) => searchTerm.length > 3), // el input teien que ser mas de 3 caracteres para que busque
       debounceTime(500), // tras pasado medio segundo al dejar de escribir busca
-      distinct(),
+      distinct(), // Si la busqueda es la misma que la anterior no hace nada
+
       tap((searchTerm: string) => console.log(searchTerm))
     ).subscribe((searchTerm: string) => {
       this.searchProducts(searchTerm); // Llama a searchProducts() con el término de búsqueda

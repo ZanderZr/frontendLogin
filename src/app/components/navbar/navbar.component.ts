@@ -7,69 +7,68 @@ import { ProductService } from 'src/app/services/product.service';
 import { UsersService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-navbar', // Selector del componente
+  templateUrl: './navbar.component.html', // URL del template del componente
+  styleUrls: ['./navbar.component.css'] // URL de los estilos del componente
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
-  
-  @ViewChild('productSearchInput') productSearchInput!: ElementRef;
-  usuario: String = ""
-  private refreshSubscription: Subscription = new Subscription(); // se utiliza para representar una suscripción a un observable
-  isLogged: Boolean = false;
-  listProductsSearch: Product[] = [];
 
-  constructor(private router: Router, private _usersService: UsersService, private _productService: ProductService) {
-  
-  }
+  @ViewChild('productSearchInput') productSearchInput!: ElementRef; // Referencia al input de búsqueda de productos
+
+  usuario: String = ""; // Variable para almacenar el nombre de usuario
+  private refreshSubscription: Subscription = new Subscription(); // Suscripción al observable refreshNavbar$
+  isLogged: Boolean = false; // Indicador de sesión iniciada
+  listProductsSearch: Product[] = []; // Lista de productos buscados
+
+  constructor(
+    private router: Router, // Inyección de dependencias del Router
+    private _usersService: UsersService, // Inyección de dependencias del UsersService
+    private _productService: ProductService // Inyección de dependencias del ProductService
+  ) {}
 
   /*
-  Aquí se realiza la suscripción al observable refreshNavbar$ del servicio _usersService.
-  Cuando este observable emite un valor (en este caso, un valor de tipo void), se ejecuta
-  la función de flecha proporcionada como argumento para subscribe. En este caso, la función
-  de flecha llama a this.loadUser(), lo que probablemente signifique que se actualizará la
-  información del usuario en el navbar cuando se produzca un evento de actualización.
+  Se realiza la suscripción al observable refreshNavbar$ del servicio _usersService.
+  Cuando este observable emite un valor, se llama a this.loadUser() para actualizar
+  la información del usuario en la navbar.
   */
-
   ngOnInit(): void {
     this.refreshSubscription = this._usersService.refreshNavbar$.subscribe(() => {
-     this.loadUser();
+      this.loadUser(); // Llama a loadUser() cuando refreshNavbar$ emite un valor
     });
     this.loadUser(); // Cargar el usuario inicialmente
   }
 
   ngAfterViewInit(): void {
-    this._productService.setProductSearchInput(this.productSearchInput);
+    this._productService.setProductSearchInput(this.productSearchInput); // Establecer el input de búsqueda en el servicio ProductService
   }
 
   ngOnDestroy(): void {
     if (this.refreshSubscription) {
-      this.refreshSubscription.unsubscribe();
+      this.refreshSubscription.unsubscribe(); // Cancelar la suscripción cuando se destruya el componente
     }
   }
 
   private loadUser(): void {
     this._usersService.getUser().subscribe(
       (user: User) => {
-        if (user && user.username) {
-          this.usuario = "Bienvenido, " + user.username;
-          this.isLogged = true;
+        if (user && user.username) { // Verificar si el usuario y su nombre de usuario existen
+          this.usuario = "Bienvenido, " + user.username; // Actualizar el nombre de usuario
+          this.isLogged = true; // Marcar que la sesión está iniciada
         } else {
-          console.error('Usuario o nombre de usuario no definidos');
-          this.usuario = "";
+          console.error('Usuario o nombre de usuario no definidos'); // Mostrar error en consola
+          this.usuario = ""; // Vaciar el nombre de usuario
         }
       },
       (error) => {
-        console.error(error);
-        this.usuario = "";
+        console.error(error); // Mostrar error en consola
+        this.usuario = ""; // Vaciar el nombre de usuario
       }
     );
   }
 
   logout(): void {
-    this._usersService.logout();
-    this.router.navigate(['/login']);
-    this.isLogged = false;
+    this._usersService.logout(); // Llamar al método logout del servicio UsersService
+    this.router.navigate(['/login']); // Navegar a la página de login
+    this.isLogged = false; // Marcar que la sesión no está iniciada
   }
-  
 }
